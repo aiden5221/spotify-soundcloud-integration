@@ -1,4 +1,5 @@
 const express = require('express');
+const { STATUS_CODES } = require('http');
 const router = express.Router();
 require('dotenv').config();
 
@@ -20,8 +21,14 @@ router.get('/callback', async (req, res) => {
         return;
     }
 
-    await spotifyUtils.getAccessToken(code);
-    
+    const response = await spotifyUtils.getAccessToken(code);
+    res.send('Successfully Signed In!')
+});
+
+
+router.get('/getMe', async (req, res) => {
+    const response = await spotifyUtils.getPlaylists();
+    res.send(response)
 });
 
 
