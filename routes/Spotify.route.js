@@ -25,10 +25,23 @@ router.get('/callback', async (req, res) => {
     res.send('Successfully Signed In!')
 });
 
-
 router.get('/getMe', async (req, res) => {
-    const response = await spotifyUtils.getPlaylists();
+    const response = await spotifyUtils.getMe();
     res.send(response)
+});
+
+router.get('/getPlaylists', async (req, res) => {
+    const options = {
+        limit: 50,
+    }
+    const response = await spotifyUtils.getPlaylists(options);
+    res.send(response)
+});
+
+router.get('/getTracks/:playlistId', async (req, res) => {
+    const { playlistId } = req.params;
+    const response = await spotifyUtils.getTracks(playlistId);
+    res.send(response);
 });
 
 
